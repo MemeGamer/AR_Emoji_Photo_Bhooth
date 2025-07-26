@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smiley Booth</title>
+  <!-- Link to the stylesheet for basic layout and styling -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Start screen: displayed when the page first loads -->
+  <div id="start-screen" class="screen">
+    <h1 class="title">Smiley Booth</h1>
+    <button id="start-btn" class="primary-btn">Start</button>
+    <p class="subtitle">Raise your hand to begin</p>
+  </div>
+
+  <!-- Booth screen: shows the live video feed and overlays for the AR experience -->
+  <div id="booth-screen" class="screen hidden">
+    <!-- Row of emoji thumbnails. This bar appears when the AR overlay is active and
+         lets the user see which emoji is currently selected. It will scroll
+         horizontally so the active emoji is centred. -->
+    <div id="emoji-row" class="emoji-row hidden"></div>
+
+    <div class="video-container">
+      <video id="video" class="video" autoplay playsinline></video>
+      <!-- Canvas used to draw smileys, countdown, and other overlays -->
+      <canvas id="overlay" class="overlay-canvas"></canvas>
+      <!-- Text elements for countdown and instructions -->
+      <div id="countdown" class="overlay-text countdown"></div>
+      <div id="instructions" class="overlay-text instructions"></div>
+      <!-- Exit button positioned over the video -->
+      <button id="exit-btn" class="overlay-button">Exit</button>
+    </div>
+  </div>
+
+  <!-- Result screen: shows the captured image and QR code for downloading -->
+  <div id="result-screen" class="screen hidden">
+    <h2>Your Photo</h2>
+    <canvas id="result-canvas" class="result-canvas"></canvas>
+    <p>Scan the QR code below to download your photo:</p>
+    <div id="qr-container" class="qr-container"></div>
+    <button id="exit-btn2" class="primary-btn">Exit</button>
+  </div>
+
+  <!-- Include MediaPipe and QR code libraries -->
+  <!--
+    Load the MediaPipe modules from jsDelivr with explicit version numbers.  The
+    face detection and hands solutions are pulled from version 0.4, which
+    supports the `model` option in JavaScript.  The camera utilities and
+    drawing utils packages do not have a 0.4 release (the latest available
+    version at the time of writing is 0.3.x), so we import them from
+    `@mediapipe/camera_utils@0.3` and `@mediapipe/drawing_utils@0.3` respectively.
+    Using an unavailable version (such as 0.4) for these modules causes the
+    `Camera` class to be undefined and results in a runtime error when the app
+    attempts to start the camera【860571320404376†L4-L16】.
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_detection@0.4/face_detection.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3/drawing_utils.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Main application script -->
+  <script src="app.js"></script>
+</body>
+</html>

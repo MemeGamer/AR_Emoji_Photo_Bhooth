@@ -1,0 +1,235 @@
+/* Basic reset and fonts */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  /* Apply the decorative background image to the entire page so that
+     no white areas remain. Users can replace the image in the `bg`
+     folder to customise the scene. */
+  background-image: url('bg/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #333;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Screens are full-page flex containers */
+.screen {
+  /* Allow the app to expand on larger screens. Use a percentage of the viewport
+     width rather than a fixed max-width to make the video area larger and
+     reduce unused white space. */
+  width: 100%;
+  max-width: 95vw;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* Ensure each screen occupies the full viewport height so content
+     (including the exit button on the result screen) stays within the
+     coloured background instead of spilling into the page margin. */
+  min-height: 100vh;
+}
+
+/* Booth screen background.
+   The decorative background image fills the area around the video and emoji bar
+   when the AR experience is active. Users can replace the file in the
+   `bg` folder to customise the look. */
+#booth-screen {
+  /* Keep the border radius for the booth container but remove any
+     background image. The page background is applied globally on the
+     body instead. */
+  border-radius: 10px;
+}
+
+/* Hide screens when not in use */
+.hidden {
+  display: none !important;
+}
+
+/* Title styling */
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  color: #666;
+}
+
+/* Buttons */
+.primary-btn {
+  background-color: rgb(0 0 0 / 58%);
+  border: none;
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+}
+
+.primary-btn:hover {
+  background-color: #e68900;
+}
+
+/* Overlay exit button */
+.overlay-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.overlay-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Video container for live feed */
+.video-container {
+  position: relative;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  /* Keep a plain background behind the video so the camera feed remains
+     clearly visible. The decorative background is applied to the overall
+     booth screen instead of this container. */
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Canvas overlay sits on top of the video */
+.overlay-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Overlay text for countdown and instructions */
+.overlay-text {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  z-index: 5;
+}
+
+.countdown {
+  top: 20%;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.instructions {
+  bottom: 15%;
+  padding: 0 20px;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+/* Result canvas styling */
+/* Result canvas styling
+   Reduce the size of the captured photo on the result screen so
+   that it does not fill the entire width. This leaves space for the
+   decorative background to show around the image. Adjust the width
+   percentages to taste. */
+/*
+ * Result canvas sizing
+ * Keep the captured photo fairly small so it doesn’t get cut off at the top.
+ * Using around half the page width and a maximum height ensures the
+ * background remains visible above and below the image while maintaining
+ * the aspect ratio.
+ */
+/*
+ * Result canvas sizing
+ * Scale the photo down so it fits comfortably within the result screen.
+ * Using roughly half the screen width and a generous max‑height prevents
+ * the image from being cut off on smaller displays while still leaving
+ * room for the decorative background and QR code.  If you adjust these
+ * values, keep the aspect ratio intact by letting the browser
+ * calculate the height automatically.
+ */
+.result-canvas {
+  width: 60%;
+  max-width: 50vw;
+  max-height: 50vh;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  display: block;
+  /* Add a small top margin to ensure the image doesn’t overlap the heading */
+  margin-top: 0.5rem;
+}
+
+/* QR container styling */
+.qr-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* Horizontal bar of emoji thumbnails shown when the AR overlay is active. */
+.emoji-row {
+  width: 100%;
+  max-width: 90vw;
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  padding: 8px 8px;
+  margin-bottom: 10px;
+  justify-content: center;
+  /* Draw a light semi‑transparent background and rounded corners so the
+     emoji bar stands out against the colourful backdrop.  Increase
+     opacity and add a subtle border and shadow to improve
+     legibility. */
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Hide scrollbars */
+  scrollbar-width: none; /* Firefox */
+}
+.emoji-row::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+.emoji-row img {
+  width: 40px;
+  height: 40px;
+  opacity: 0.6;
+  transition: transform 0.3s, opacity 0.3s;
+  cursor: pointer;
+}
+.emoji-row img.active {
+  transform: scale(1.5);
+  opacity: 1;
+}
